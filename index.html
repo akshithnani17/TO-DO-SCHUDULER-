@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifePlanner Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- LOGIN VIEW (Starting Page - Visible by Default) -->
+    <div class="container" id="login-view">
+        <div class="card login-card">
+            <h1 class="brand">✨ LifePlanner</h1>
+            <p class="subtitle">Plan your future, one day at a time</p>
+            
+            <form id="login-form">
+                <div class="input-group">
+                    <label>Email or Phone ID</label>
+                    <input type="text" id="userId" placeholder="user@gmail.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="••••••" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+                <p class="error-msg" id="login-error"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- DASHBOARD VIEW (Hidden by Default) -->
+    <div class="container hidden" id="dashboard-view">
+        <header>
+            <div class="user-info">
+                <h2 id="user-greeting">Hello!</h2>
+                <small id="header-date">Today</small>
+            </div>
+            <!-- EXPLICIT LOGOUT BUTTON -->
+            <button class="btn-logout" id="logout-btn">Logout 🚪</button>
+        </header>
+
+        <main>
+            <!-- SETUP MODE (Planning) -->
+            <section id="setup-mode">
+                
+                <!-- MOTIVATION WHILE SELECTING -->
+                <div class="quote-display">
+                    <span class="quote-icon">✨</span>
+                    <p id="planning-motivation">Loading inspiration...</p>
+                </div>
+
+                <!-- Date Selection -->
+                <div class="date-selector">
+                    <label>Planning for:</label>
+                    <input type="date" id="plan-date">
+                </div>
+
+                <!-- Search & Add -->
+                <div class="search-area">
+                    <div class="input-group">
+                        <label>Add Task (Search or Type)</label>
+                        <div class="input-row">
+                            <input type="text" id="task-name-input" placeholder="Type or click suggestions..." autocomplete="off">
+                            <input type="time" id="task-time-input" value="08:00">
+                            <button class="btn-add" id="add-task-btn">+</button>
+                        </div>
+                        <small style="color:var(--text-light); font-size:0.75rem; margin-top:4px; display:block;">
+                            * Select a task name above, then pick your time, then click +.
+                        </small>
+                    </div>
+
+                    <!-- Quick Chips -->
+                    <div class="chips-container">
+                        <button class="chip" onclick="quickAdd('Wake Up')">⏰ Wake Up</button>
+                        <button class="chip" onclick="quickAdd('Bath')">🚿 Bath</button>
+                        <button class="chip" onclick="quickAdd('Breakfast')">🥞 Eat</button>
+                        <button class="chip" onclick="quickAdd('Coding')">💻 Coding</button>
+                        <button class="chip" onclick="quickAdd('College')">🎓 College</button>
+                        <button class="chip" onclick="quickAdd('Gym')">💪 Gym</button>
+                        <button class="chip" onclick="quickAdd('Reading')">📚 Read</button>
+                    </div>
+                </div>
+
+                <!-- Task List -->
+                <div class="task-list-container">
+                    <h3>Your Schedule</h3>
+                    <div class="task-list" id="planning-list">
+                        <div class="empty-state">No tasks yet. Select from above!</div>
+                    </div>
+                </div>
+
+                <!-- Generate Action -->
+                <button class="btn-primary btn-glow" id="generate-btn">
+                    🚀 Generate & Email Schedule
+                </button>
+            </section>
+
+            <!-- SUCCESS EMAIL SCREEN -->
+            <section id="email-success-screen" class="hidden">
+                <div class="success-animation">
+                    <div class="checkmark-circle">✓</div>
+                </div>
+                <h2>Schedule Sent!</h2>
+                <p>Your plan has been sent to <strong id="email-display-text">email</strong>.</p>
+                
+                <!-- MOTIVATION AFTER CONFIRMING -->
+                <div class="motivation-card">
+                    <span class="quote-icon">💡</span>
+                    <p id="confirm-motivation">"Motivation goes here..."</p>
+                </div>
+
+                <button class="btn-secondary" id="go-to-checklist-btn">
+                    Start Checklist ➔
+                </button>
+            </section>
+
+            <!-- EXECUTION MODE (Checkboxes) -->
+            <section id="execution-mode" class="hidden">
+                <div class="mode-header">
+                    <h3 id="execution-date-title">Schedule for Today</h3>
+                    <p>Mark tasks as Done (Right) or leave blank if missed.</p>
+                </div>
+
+                <div class="task-list" id="execution-list">
+                    <!-- Checkboxes go here -->
+                </div>
+
+                <button class="btn-primary btn-finish" id="finish-day-btn">
+                    🏁 Finish Day
+                </button>
+            </section>
+
+            <!-- RESULT SCREEN -->
+            <section id="result-screen" class="hidden">
+                <div class="result-card">
+                    <div id="result-icon" class="result-emoji">🏆</div>
+                    <h2 id="result-title">Congratulations!</h2>
+                    <p id="result-message">You did it!</p>
+                    
+                    <button class="btn-secondary" onclick="resetApp()">Plan New Day</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast">Notification</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
